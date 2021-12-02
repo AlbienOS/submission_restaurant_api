@@ -20,11 +20,14 @@ class _SearchPageState extends State<SearchPage> {
     return ChangeNotifierProvider<SearchProvider>(
       create: (_) => SearchProvider(apiService: ApiService(), name: searchData),
       child: Consumer<SearchProvider>(builder: (context, state, _) {
-        var size = MediaQuery.of(context).size;
+        var size = MediaQuery
+            .of(context)
+            .size;
         return Scaffold(
           body: SingleChildScrollView(
             child: SafeArea(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Stack(
                     children: <Widget>[
@@ -32,7 +35,7 @@ class _SearchPageState extends State<SearchPage> {
                         // Here the height of the container is 45% of our total height
                         height: size.height * .25,
                         decoration: BoxDecoration(
-                          color: Color(0xFFF5CEB8),
+                          color: Colors.grey,
                         ),
                       ),
                       Container(
@@ -59,15 +62,19 @@ class _SearchPageState extends State<SearchPage> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 20, left: 10),
-                                    child:  Text('Search Restaurant', style: TextStyle(fontSize: 30, fontFamily: 'Blacklist')),
+                                    padding: const EdgeInsets.only(
+                                        top: 20, left: 10),
+                                    child: Text('Search Restaurant',
+                                        style: TextStyle(fontSize: 30,
+                                            fontFamily: 'Blacklist')),
                                   ),
                                 ],
                               ),
                               Container(
                                 margin: EdgeInsets.symmetric(vertical: 30),
                                 padding:
-                                    EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                                EdgeInsets.symmetric(
+                                    horizontal: 30, vertical: 5),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(29.5),
@@ -93,28 +100,23 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 50),
-                  if (searchData.isEmpty)
-                    Center(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 50),
-                          child: Column(
-                            children: const [
-                              SizedBox(height: 60),
-                              Icon(Icons.search, color: Colors.black, size: 150),
-                              Text(
-                                "Find Restaurant",
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  color: Colors.black,
+                    if(searchData.isEmpty)
+                      Container(
+                        child: Column(
+                          children: [
+                              SizedBox(
+                                height: 400,
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text('Find Restaurant',
+                                    style: TextStyle(fontSize: 20),),
                                 ),
                               ),
-                            ],
-                          ),
+                          ],
                         ),
-                    )
+                      )
                   else
-                    _listBuilder(state),
+                    _listBuilder(state)
                 ],
               ),
             ),
@@ -124,54 +126,52 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
+
   Widget _listBuilder(SearchProvider state) {
-    if (state.state == ResultState.Loading) {
-      return const Center(child: CircularProgressIndicator());
-    } else if (state.state == ResultState.HasData) {
+    if(state.state == ResultState.HasData){
       return ListView.builder(
         shrinkWrap: true,
         physics: const ClampingScrollPhysics(),
         itemCount: state.result.restaurants.length,
-        itemBuilder: (context, index) {
-          return CardSearch(restaurant: state.result.restaurants[index]);
+        itemBuilder: (context, i) {
+          var restaurant = state.result.restaurants[i];
+          return CardSearch(restaurant: restaurant);
         },
       );
-    } else if (state.state == ResultState.NoData) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 40),
-        child: Center(
-            child: Column(
-          children: const [
-            SizedBox(height: 60),
-            Icon(Icons.error_outline, color: Colors.black, size: 150),
-            Text(
-              "Cannot Find Restaurant",
-              style: TextStyle(
-                fontSize: 17,
-                color: Colors.black,
-              ),
-            ),
-          ],
-        )),
+    }else if(state.state == ResultState.Loading){
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CircularProgressIndicator()
+        ],
       );
-    } else if (state.state == ResultState.Error) {
-      return Column(children: [
-        const SizedBox(height: 50),
-        const Icon(
-          Icons.error_outline,
-          size: 150,
-          color: Colors.black,
+    } else if(state.state == ResultState.NoData){
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 200),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.error, size: 100,),
+              Text(state.message, style: TextStyle(fontSize: 16),),
+            ],
+          ),
+        );
+    }else if(state.state == ResultState.Error){
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 200),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.error, size: 100,),
+            Text(state.message, style: TextStyle(fontSize: 16),),
+          ],
         ),
-        Center(
-          child: Text(state.message,
-              style: const TextStyle(
-                fontSize: 17,
-                color: Colors.black,
-              )),
-        )
-      ]);
-    }else {
-      return Center(child: Text(''));
+      );
+    }
+    else{
+      return Text('Empty');
     }
   }
 }

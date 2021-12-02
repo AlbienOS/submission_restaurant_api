@@ -1,4 +1,4 @@
-import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:submission_restaurant_api/ui/favorite_page.dart';
@@ -7,7 +7,6 @@ import 'package:submission_restaurant_api/ui/restaurant_list_page.dart';
 import 'package:submission_restaurant_api/ui/search_page.dart';
 import 'package:submission_restaurant_api/ui/setting_page.dart';
 import 'package:submission_restaurant_api/utils/notification_helper.dart';
-import 'package:submission_restaurant_api/widget/platform_widget.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home_page';
@@ -33,19 +32,19 @@ class _HomePageState extends State<HomePage> {
 
   List<BottomNavigationBarItem> _bottomNavBarItems = [
     BottomNavigationBarItem(
-      icon: Icon(Platform.isIOS ? CupertinoIcons.home : Icons.home),
+      icon: Icon(Icons.home),
       label: _headlineText,
     ),
     BottomNavigationBarItem(
-      icon: Icon(Platform.isIOS ? CupertinoIcons.search : Icons.search),
+      icon: Icon(Icons.search),
       label: _searchText,
     ),
     BottomNavigationBarItem(
-      icon: Icon(Platform.isIOS ? CupertinoIcons.heart : Icons.favorite),
+      icon: Icon(Icons.favorite),
       label: _settingsText,
     ),
     BottomNavigationBarItem(
-      icon: Icon(Platform.isIOS ? CupertinoIcons.settings : Icons.settings),
+      icon: Icon(Icons.settings),
       label: _listFavoriteText,
     ),
   ];
@@ -56,7 +55,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Widget _buildAndroid(BuildContext context) {
+  Widget _buildBottomNavigation(BuildContext context) {
     return Scaffold(
       body: _listWidget[_bottomNavIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -82,8 +81,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return PlatformWidget(
-      androidBuilder: _buildAndroid,
-    );
+    return _buildBottomNavigation(context);
   }
 }

@@ -30,12 +30,10 @@ class BackgroundService{
 
     print('Alarm On!');
     final NotificationHelper _notificationHelper = NotificationHelper();
-    var result = await ApiService().topHeadlines();
-    var randomNotif = Random().nextInt(result.restaurants.length);
-    var data = result.restaurants[randomNotif];
+    var randomNotif = await ApiService().randomRestaurant();
 
     await _notificationHelper.showNotification(
-        flutterLocalNotificationsPlugin, data);
+        flutterLocalNotificationsPlugin, randomNotif);
 
     _uiSendPort ??= IsolateNameServer.lookupPortByName(_isolateName);
     _uiSendPort?.send(null);

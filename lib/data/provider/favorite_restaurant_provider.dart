@@ -53,7 +53,7 @@ class FavoriteRestaurantsProvider extends ChangeNotifier{
       _getFavorite();
     }catch(e){
       _state = ResultState.Error;
-      _message = 'Error: Failed to Remove Favorite!';
+      _message = 'Error: Failed Remove Favorite!';
       notifyListeners();
     }
   }

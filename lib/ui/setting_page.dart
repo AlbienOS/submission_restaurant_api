@@ -36,19 +36,15 @@ Widget _buildList(BuildContext context){
       children: [
         Material(
           child: ListTile(
-            title: Text('Restaurant App'),
+            title: Text('Restaurant Notify'),
             trailing: Consumer<SchedulingProvider>(
               builder: (context, scheduled, _){
                 return Switch.adaptive(
                   value: provider.isDailyRestaurant,
                   onChanged: (value) async{
-                    if(Platform.isIOS){
-                      customDialog(context);
-                    }else{
                       scheduled.scheduledRestaurant(value);
                       provider.enableDailyRestaurant(value);
                     }
-                  },
                 );
               },
             ),

@@ -7,11 +7,9 @@ import 'package:submission_restaurant_api/widget/card_restaurant.dart';
 import 'package:submission_restaurant_api/widget/platform_widget.dart';
 
 class FavoritePage extends StatelessWidget {
-  Widget _buildList() {
+  Widget _buildListFavorited() {
     return Consumer<FavoriteRestaurantsProvider>(builder: (context, state, _) {
-      if (state.state == ResultState.Loading) {
-        return Center(child: CircularProgressIndicator());
-      } else if (state.state == ResultState.HasData) {
+      if (state.state == ResultState.HasData) {
         return ListView.builder(
           shrinkWrap: true,
           physics: const ClampingScrollPhysics(),
@@ -23,46 +21,29 @@ class FavoritePage extends StatelessWidget {
         );
       } else if (state.state == ResultState.NoData) {
         return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 40),
-          child: Center(
+          padding: const EdgeInsets.symmetric(vertical: 100),
+          child: Align(
+            alignment: Alignment.center,
               child: Column(
                 children: const [
-                  SizedBox(height: 60),
-                  Icon(Icons.error_outline, color: Colors.black, size: 150),
                   Text(
                     "No favorite restaurant yet",
                     style: TextStyle(
                       fontSize: 15,
-                      color: Colors.black,
+                      color: Colors.grey,
                     ),
                   ),
                 ],
               ),
           ),
         );
-      } else if (state.state == ResultState.Error) {
-        return Column(children: [
-          const SizedBox(height: 50),
-          const Icon(
-            Icons.error_outline,
-            size: 150,
-            color: Colors.black,
-          ),
-          Center(
-            child: Text(state.message,
-                style: const TextStyle(
-                  fontSize: 17,
-                  color: Colors.black,
-                )),
-          )
-        ]);
       } else {
-        return Center(child: Text(''));
+        return Center(child: Text('Empty'));
       }
     });
   }
 
-  Widget _buildAndroid(BuildContext context) {
+  Widget _buildFavorite(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -73,22 +54,15 @@ class FavoritePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 15, top: 30, bottom: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                     child: Text(
-                      'Restaurant',
-                      style: TextStyle(fontSize: 60, fontFamily: 'Blacklist'),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 15, top: 10, bottom: 20),
-                    child: Text(
-                      'Recommendation restaurant for you!',
-                      style: TextStyle(fontSize: 16),
+                      'Favorite Restaurant',
+                      style: TextStyle(fontSize: 40, fontFamily: 'Blacklist'),
                     ),
                   ),
                 ],
               ),
-              _buildList(),
+              _buildListFavorited(),
             ],
           ),
         ),
@@ -98,6 +72,6 @@ class FavoritePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PlatformWidget(androidBuilder: _buildAndroid);
+    return PlatformWidget(androidBuilder: _buildFavorite);
   }
 }

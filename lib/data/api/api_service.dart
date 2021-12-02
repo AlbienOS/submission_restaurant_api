@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:submission_restaurant_api/data/model/detail_restaurant.dart';
 import 'package:submission_restaurant_api/data/model/restaurant.dart';
@@ -37,5 +38,13 @@ class ApiService{
         throw Exception('Failed to load search');
       }
     }
+
+    Future<Restaurant> randomRestaurant() async{
+      var result = await ApiService().topHeadlines();
+      var randomNotif = Random().nextInt(result.restaurants.length);
+      var data = result.restaurants[randomNotif];
+      return data;
+    }
+
   }
 

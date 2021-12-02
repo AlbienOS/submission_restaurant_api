@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:share/share.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -48,6 +49,7 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Stack(
                 children: [
@@ -178,8 +180,7 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 60, width: 30),
-                  Divider(color: Colors.grey),
+                  Divider(color: Colors.grey, thickness: 4,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -194,100 +195,143 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
                   ),
                 ],
               ),
-              Table(
-                columnWidths: {1: FractionColumnWidth(0.5)},
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TableRow(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Column(
-                        children: [
-                          Text(
-                            'Foods',
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          'Makanan :',
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Staatliches'
                           ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            'Drinks',
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ],
-                  ),
-                  TableRow(children: [
-                    Column(
-                      children: [
-                        _foodItems(context, detailRestaurant.menus.foods)
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        _drinkItems(context, detailRestaurant.menus.drinks)
-                      ],
-                    ),
-                  ]),
+                  )
                 ],
               ),
-            ],
-          ),
+              Container(
+                height: MediaQuery.of(context).size.height -700,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [_foodItems(context, detailRestaurant.menus.foods)]
+              ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
+                          'Minuman :',
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Staatliches'
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height -700,
+                child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [_drinkItems(context, detailRestaurant.menus.drinks)]
+                ),
+              ),
+        ],
         ),
       ),
+    ),
     );
   }
 
-  Widget _foodItems(BuildContext context, List<Category> foods) {
-    List<Widget> text = [];
-    int num = 1;
+  Widget _foodItems(BuildContext context, List<Category> foodsList) {
+    List<Widget> foodText = [];
 
-    for (var foods in foods) {
-      text.add(const SizedBox(
-        height: 5,
+    for (var foods in foodsList) {
+      foodText.add(Padding(padding: EdgeInsets.all(8),
+
       ));
-      text.add(Text('$num. ${foods.name}'));
-      num++;
+      foodText.add(
+          Card(
+            shadowColor: Colors.black,
+            color: Colors.grey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 100,
+                      width: 200,
+                      child: Center(
+                        child: Text('${foods.name}', style: TextStyle(fontFamily: 'Staatliches'),
+                        ),
+                      ),
+                  ),
+                ],
+              ),
+          ),
+      );
     }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: text,
-    );
+    return  Row(
+        children: foodText
+      );
   }
 
-  Widget _drinkItems(BuildContext context, List<Category> drinks) {
-    List<Widget> text = [];
-    int num = 1;
+  Widget _drinkItems(context, List<Category> drinksList) {
+    List<Widget> drinkText = [];
 
-    for (var drinks in drinks) {
-      text.add(const SizedBox(
-        height: 5,
+    for (var drinks in drinksList) {
+      drinkText.add(
+          Padding(padding: EdgeInsets.all(8)
       ));
-      text.add(Text('$num. ${drinks.name}'));
-      num++;
+      drinkText.add(
+        Card(
+        shadowColor: Colors.black,
+        color: Colors.grey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 100,
+              width: 200,
+              child: Center(
+                child: Text('${drinks.name}', style: TextStyle(fontFamily: 'Staatliches')
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      );
     }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: text,
+    return Row(
+      children: drinkText
     );
   }
 
-  Widget _restoCategory(BuildContext context, List<Category> category){
+  Widget _restoCategory(context, List<Category> category){
     List<Widget> text = [];
 
     for(var category in category){
-      text.add(const SizedBox(height: 5,));
+      text.add(Padding(padding: EdgeInsets.all(8.0)));
       text.add(
           Card(
             shadowColor: Colors.black,
             child: Padding(
-              padding: const EdgeInsets.all(3),
+              padding: const EdgeInsets.all(4.0),
               child: Row(
                 children: [
                   Icon(Icons.tag),

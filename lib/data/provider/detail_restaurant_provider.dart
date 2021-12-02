@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:submission_restaurant_api/data/api/api_service.dart';
 import 'package:submission_restaurant_api/data/model/detail_restaurant.dart';
 import 'package:submission_restaurant_api/utils/result_state.dart';
-import 'package:http/http.dart' as http;
 
 
 class DetailRestaurantsProvider extends ChangeNotifier{

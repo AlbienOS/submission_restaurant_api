@@ -18,6 +18,9 @@ class CardRestaurant extends StatelessWidget {
             builder: (context, snapshot) {
               var isFavorited = snapshot.data ?? false;
               return Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius:BorderRadius.circular(20),
+                ),
                 child: InkWell(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

@@ -27,10 +27,6 @@ class DetailRestaurantsResult {
     "restaurant": restaurant.toJson(),
   };
 
-  @override
-  String toString() {
-    return 'DetailRestaurantsResult{error: $error, message: $message, restaurant: $restaurant}';
-  }
 }
 
 class DetailRestaurant {
@@ -101,11 +97,6 @@ class Category {
     "name": name,
   };
 
-
-  @override
-  String toString() {
-    return 'Category{name: $name}';
-  }
 
 }
 

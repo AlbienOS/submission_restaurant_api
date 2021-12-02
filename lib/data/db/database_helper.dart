@@ -11,14 +11,14 @@ class DatabaseHelper{
 
   factory DatabaseHelper() => _instance ?? DatabaseHelper._internal();
 
-  static const String _tblFavorite = 'favorite';
+  static const String _tableFavorite = 'favorite';
 
   Future<Database> _initializeDb() async {
     var path = await getDatabasesPath();
     var db = openDatabase(
       '$path/favoriteapp.db',
       onCreate: (db, version) async{
-        await db.execute('''CREATE TABLE $_tblFavorite(
+        await db.execute('''CREATE TABLE $_tableFavorite(
         id TEXT PRIMARY KEY,
         name TEXT,
         description TEXT,
@@ -41,12 +41,12 @@ class DatabaseHelper{
 
   Future<void> insertFavorite(Restaurant restaurant) async {
     final db = await database;
-    await db!.insert(_tblFavorite, restaurant.toJson());
+    await db!.insert(_tableFavorite, restaurant.toJson());
   }
 
   Future<List<Restaurant>> getFavorite() async {
     final db = await database;
-    List<Map<String, dynamic>> results = await db!.query(_tblFavorite);
+    List<Map<String, dynamic>> results = await db!.query(_tableFavorite);
 
     return results.map((res) => Restaurant.fromJson(res)).toList();
   }
@@ -55,7 +55,7 @@ class DatabaseHelper{
     final db = await database;
 
     List<Map<String, dynamic>> results = await db!.query(
-      _tblFavorite,
+      _tableFavorite,
       where: 'id = ?',
       whereArgs: [id],
     );
@@ -70,7 +70,7 @@ class DatabaseHelper{
     final db = await database;
 
     await db!.delete(
-      _tblFavorite,
+      _tableFavorite,
       where: 'id = ?',
       whereArgs: [id],
     );
