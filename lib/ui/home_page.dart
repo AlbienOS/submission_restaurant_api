@@ -17,7 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final NotificationHelper _notificationHelper = NotificationHelper();
-  int _bottomNavIndex = 0;
+  int _selectedPage = 0;
   static const String _headlineText = 'Home';
   static const String _searchText = 'Search';
   static const String _listFavoriteText = 'Favorite';
@@ -51,17 +51,19 @@ class _HomePageState extends State<HomePage> {
 
   void _onBottomNavTapped(int index) {
     setState(() {
-      _bottomNavIndex = index;
+      _selectedPage = index;
     });
   }
 
   Widget _buildBottomNavigation(BuildContext context) {
     return Scaffold(
-      body: _listWidget[_bottomNavIndex],
+      body: _listWidget[_selectedPage],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _bottomNavIndex,
+        currentIndex: _selectedPage,
         items: _bottomNavBarItems,
         onTap: _onBottomNavTapped,
+        unselectedItemColor: Colors.black45,
+        selectedItemColor: Colors.blueAccent,
       ),
     );
   }

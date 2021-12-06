@@ -16,9 +16,12 @@ class CardSearch extends StatelessWidget{
           children: [
             Hero(
                 tag: restaurant.pictureId,
-                child: Image.network(
-                    'https://restaurant-api.dicoding.dev/images/medium/${restaurant
-                        .pictureId}')
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15.0),
+                  child: Image.network(
+                      'https://restaurant-api.dicoding.dev/images/medium/${restaurant
+                          .pictureId}'),
+                )
             ),
             SizedBox(height: 10),
             Padding(

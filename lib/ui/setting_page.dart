@@ -23,35 +23,56 @@ Widget _buildAndroid(BuildContext context) {
     appBar: AppBar(
       title: Text('Settings'),
     ),
-    body: _buildList(context),
-  );
-}
-
-
-
-
-Widget _buildList(BuildContext context){
-  return Consumer<PreferencesProvider>(builder: (context, provider, child){
-    return ListView(
-      children: [
-        Material(
-          child: ListTile(
-            title: Text('Restaurant Notify'),
-            trailing: Consumer<SchedulingProvider>(
-              builder: (context, scheduled, _){
-                return Switch.adaptive(
-                  value: provider.isDailyRestaurant,
-                  onChanged: (value) async{
-                      scheduled.scheduledRestaurant(value);
-                      provider.enableDailyRestaurant(value);
-                    }
-                );
-              },
+    body: Consumer<PreferencesProvider>(builder: (context, provider, child){
+      return ListView(
+        children: [
+          Material(
+            child: ListTile(
+              title: Text('Restaurant Notify'),
+              trailing: Consumer<SchedulingProvider>(
+                builder: (context, scheduled, _){
+                  return Switch.adaptive(
+                      value: provider.isDailyRestaurant,
+                      onChanged: (value) async{
+                        scheduled.scheduledRestaurant(value);
+                        provider.enableDailyRestaurant(value);
+                      }
+                  );
+                },
+              ),
             ),
           ),
-        ),
-      ],
-    );
-  },
+        ],
+      );
+    },
+    ),
   );
 }
+
+
+
+
+// Consumer<PreferencesProvider>(builder: (context, provider, child){
+//     return ListView(
+//       children: [
+//         Material(
+//           child: ListTile(
+//             title: Text('Restaurant Notify'),
+//             trailing: Consumer<SchedulingProvider>(
+//               builder: (context, scheduled, _){
+//                 return Switch.adaptive(
+//                   value: provider.isDailyRestaurant,
+//                   onChanged: (value) async{
+//                       scheduled.scheduledRestaurant(value);
+//                       provider.enableDailyRestaurant(value);
+//                     }
+//                 );
+//               },
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   },
+//   );
+// }
