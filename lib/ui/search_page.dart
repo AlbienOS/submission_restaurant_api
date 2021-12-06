@@ -89,7 +89,7 @@ class _SearchPageState extends State<SearchPage> {
                                     setState(() {
                                       searchData = value;
                                       state.searchResto(value);
-                                      _listBuilder(state);
+                                      _listSearch(state);
                                     });
                                   },
                                 ),
@@ -116,7 +116,7 @@ class _SearchPageState extends State<SearchPage> {
                         ),
                       )
                   else
-                    _listBuilder(state)
+                    _listSearch(state)
                 ],
               ),
             ),
@@ -127,7 +127,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 
 
-  Widget _listBuilder(SearchProvider state) {
+  Widget _listSearch(SearchProvider state) {
     if(state.state == ResultState.HasData){
       return ListView.builder(
         shrinkWrap: true,

@@ -10,6 +10,9 @@ class CardSearch extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
       child: InkWell(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
