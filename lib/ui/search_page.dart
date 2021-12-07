@@ -44,32 +44,7 @@ class _SearchPageState extends State<SearchPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 20),
-                                    child: CircleAvatar(
-                                      backgroundColor: Colors.grey,
-                                      child: IconButton(
-                                        icon: Icon(
-                                          Icons.arrow_back,
-                                          color: Colors.white,
-                                        ),
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 20, left: 10),
-                                    child: Text('Search Restaurant',
-                                        style: TextStyle(fontSize: 30,
-                                            fontFamily: 'Blacklist')),
-                                  ),
-                                ],
-                              ),
+                              SizedBox(height: 20.0),
                               Container(
                                 margin: EdgeInsets.symmetric(vertical: 30),
                                 padding:
@@ -142,7 +117,7 @@ class _SearchPageState extends State<SearchPage> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          CircularProgressIndicator()
+          LinearProgressIndicator()
         ],
       );
     } else if(state.state == ResultState.NoData){

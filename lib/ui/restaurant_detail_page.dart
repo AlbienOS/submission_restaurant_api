@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:submission_restaurant_api/data/api/api_service.dart';
 import 'package:submission_restaurant_api/data/model/detail_restaurant.dart';
 import 'package:submission_restaurant_api/data/provider/detail_restaurant_provider.dart';
+import 'package:submission_restaurant_api/ui/home_page.dart';
 import 'package:submission_restaurant_api/utils/result_state.dart';
 import 'package:submission_restaurant_api/widget/platform_widget.dart';
 
@@ -55,7 +56,10 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
                 children: [
                   Hero(
                     tag: detailRestaurant.pictureId,
-                    child: Image.network('https://restaurant-api.dicoding.dev/images/medium/${detailRestaurant.pictureId}'),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                        child: Image.network('https://restaurant-api.dicoding.dev/images/medium/${detailRestaurant.pictureId}'),
+                    ),
                   ),
                   SafeArea(
                     child: Padding(
@@ -64,19 +68,19 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CircleAvatar(
-                            backgroundColor: Colors.grey,
+                            backgroundColor: Colors.transparent,
                             child: IconButton(
                               icon: Icon(
                                 Icons.arrow_back,
                                 color: Colors.white,
                               ),
                               onPressed: () {
-                                Navigator.pop(context);
+                                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
                               },
                             ),
                           ),
                           CircleAvatar(
-                            backgroundColor: Colors.grey,
+                            backgroundColor: Colors.transparent,
                             child: IconButton(
                               icon: Icon(
                                 Icons.share,
@@ -115,6 +119,7 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(height: 10),
+                  _restoCategory(context, detailRestaurant.categories),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -153,7 +158,7 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
                   ),
                 ],
               ),
-              _restoCategory(context, detailRestaurant.categories),
+
               Padding(
                 padding: const EdgeInsets.only(left: 10, right: 10, bottom: 20),
                 child: Container(

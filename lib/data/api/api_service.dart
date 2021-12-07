@@ -37,14 +37,14 @@ class ApiService{
       }else{
         throw Exception('Failed to load search');
       }
-    }
-
-    Future<Restaurant> randomRestaurant() async{
-      var result = await ApiService().topHeadlines();
-      var randomNotif = Random().nextInt(result.restaurants.length);
-      var data = result.restaurants[randomNotif];
-      return data;
-    }
-
   }
+
+  Future<Restaurant> randomRestaurant() async{
+    var result = await ApiService().topHeadlines();
+    var randomNotif = Random().nextInt(result.restaurants.length);
+    var data = result.restaurants[randomNotif];
+    return data;
+  }
+}
+
 

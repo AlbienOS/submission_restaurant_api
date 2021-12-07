@@ -31,7 +31,7 @@ class FavoriteRestaurantsProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-  void addFavorite(Restaurant restaurant) async{
+  void addtoFavorite(Restaurant restaurant) async{
     try{
       await databaseHelper.insertFavorite(restaurant);
       _getFavorite();

@@ -26,15 +26,46 @@ class CardRestaurant extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Hero(
-                        tag: restaurant.pictureId!,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15.0),
-                          child: Image.network(
-                              'https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}'),
-                        )),
+                  Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Hero(
+                            tag: restaurant.pictureId!,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15.0),
+                              child: Image.network(
+                                  'https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}'),
+                            ),
+                        ),
+                      ),
+                      SafeArea(
+                          child: Padding(padding: const EdgeInsets.all(10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor: Colors.transparent,
+                                  child: IconButton(
+                                    icon: Icon(
+                                        isFavorited
+                                            ? Icons.favorite_rounded
+                                            : Icons.favorite_outline_rounded,
+                                        color: Colors.red),
+                                    onPressed: () {
+                                      isFavorited
+                                          ? provider.removeFavorite(restaurant.id)
+                                          : provider.addtoFavorite(restaurant);
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                      ),
+                    ],
+
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10),
@@ -84,24 +115,6 @@ class CardRestaurant extends StatelessWidget {
                                 fontSize: 16,
                               ),
                             ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            IconButton(
-                              icon: Icon(
-                                  isFavorited
-                                      ? Icons.favorite_rounded
-                                      : Icons.favorite_outline_rounded,
-                                  color: Colors.red),
-                              onPressed: () {
-                                isFavorited
-                                    ? provider.removeFavorite(restaurant.id)
-                                    : provider.addFavorite(restaurant);
-                              },
-                            ),
-                            SizedBox(width: 20)
                           ],
                         ),
                       ],
