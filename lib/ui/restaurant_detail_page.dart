@@ -221,7 +221,7 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
                 ],
               ),
               Container(
-                height: MediaQuery.of(context).size.height -700,
+                height: MediaQuery.of(context).size.height * 0.100,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [_foodItems(context, detailRestaurant.menus.foods)]
@@ -248,7 +248,7 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
                 ],
               ),
               Container(
-                height: MediaQuery.of(context).size.height -700,
+                height: MediaQuery.of(context).size.height * 0.100,
                 child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: [_drinkItems(context, detailRestaurant.menus.drinks)]
@@ -273,16 +273,17 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
             shadowColor: Colors.black,
             color: Colors.grey,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    height: 100,
-                      width: 200,
-                      child: Center(
-                        child: Text('${foods.name}', style: TextStyle(fontFamily: 'Staatliches'),
+                  Expanded(
+                    child: Container(
+                        width: 200,
+                        child: Center(
+                          child: Text('${foods.name}', style: TextStyle(fontFamily: 'Staatliches'),
+                          ),
                         ),
-                      ),
+                    ),
                   ),
                 ],
               ),
@@ -306,14 +307,15 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
         shadowColor: Colors.black,
         color: Colors.grey,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              height: 100,
-              width: 200,
-              child: Center(
-                child: Text('${drinks.name}', style: TextStyle(fontFamily: 'Staatliches')
+            Expanded(
+              child: Container(
+                width: 200,
+                child: Center(
+                  child: Text('${drinks.name}', style: TextStyle(fontFamily: 'Staatliches')
+                  ),
                 ),
               ),
             ),
